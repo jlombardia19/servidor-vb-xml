@@ -17,7 +17,7 @@ const io = new Server(server,{
 
 const clients = new Map();
 
-io.on('connection',(socket) => {
+io.on('connection',(socket) => {    
    
 
     socket.on('register', (id) => {
@@ -30,9 +30,15 @@ io.on('connection',(socket) => {
 });
 
 app.post('/enviar-xml', (req,res) =>{
-
+    console.log('llamada recibida');
     const id = req.headers['vbId'];
-    const xml = atob(req.body);
+    try{
+        const xml = atob(req.body);
+    }
+    catch (err) {
+        console.error('error al decodificar XML', err.message);
+        res.status(400).json({error: 'el cuerpo enviado no es un base64 valido'});
+    }
 
     const socket = clients.get(id);
     if(socket){
