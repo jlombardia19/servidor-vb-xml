@@ -21,9 +21,11 @@ io.on('connection',(socket) => {
    
 
     socket.on('register', (id) => {
+        console.log('cliente conectado con id: ', id);
         clients.set(id, socket);
 
         socket.on('disconnect', () => {
+            console.log('cliente desconectado con id: ',id);
             clients.delete(id);
         });
     });
@@ -42,6 +44,7 @@ app.post('/enviar-xml', (req,res) =>{
 
     const socket = clients.get(id);
     if(socket){
+        console.log('enviando respuesta al cliente con id: ',id);
         socket.emit('xml-response', {id,xml});
         res.sendStatus(200);
     }
@@ -51,5 +54,6 @@ app.post('/enviar-xml', (req,res) =>{
 });
 
 server.listen(8080,() => {
+    console.log('servidor escuchando en el puerto 8080');
 });
 
