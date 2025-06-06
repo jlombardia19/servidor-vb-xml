@@ -32,9 +32,10 @@ io.on('connection',(socket) => {
 });
 
 app.post('/enviar-xml', (req,res) =>{
-    console.log('llamada recibida');
-    const id = req.headers['vbId'];
     
+    const id = req.headers['vbId'];
+    console.log('llamada recibida con id: ', id);
+
         const xml = req.body;
         console.log('XML recibido correctamente: ',xml);
 
@@ -45,7 +46,8 @@ app.post('/enviar-xml', (req,res) =>{
         res.sendStatus(200);
     }
     else{
-        res.sendStatus(404).send('cliente desconectado');
+        console.log('cliente no encontrado');S
+        res.status(404).send('cliente desconectado');
     }
 });
 
