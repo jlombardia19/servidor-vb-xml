@@ -46,7 +46,7 @@ app.post('/enviar-xml', (req,res) =>{
         res.sendStatus(200);
     }
     else{
-        console.log('cliente no encontrado');S
+        console.log('cliente no encontrado');
         res.status(404).send('cliente desconectado');
     }
 });
