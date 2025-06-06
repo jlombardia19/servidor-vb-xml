@@ -3,7 +3,7 @@ const http = require('http');
 const {Server} = require('socket.io');
 
 const app = express();
-app.use(express.text({type: 'application/octet-stream' }));  
+app.use(express.text({type: 'application/xml' }));  
 //octet stream indica que los archivos enviados estan en binario
 
 const server = http.createServer(app);
@@ -34,13 +34,9 @@ io.on('connection',(socket) => {
 app.post('/enviar-xml', (req,res) =>{
     console.log('llamada recibida');
     const id = req.headers['vbId'];
-    try{
-        const xml = atob(req.body);
-    }
-    catch (err) {
-        console.error('error al decodificar XML', err.message);
-        res.status(400).json({error: 'el cuerpo enviado no es un base64 valido'});
-    }
+    
+        const xml = req.body;
+        console.log('XML recibido correctamente: ',xml);
 
     const socket = clients.get(id);
     if(socket){
