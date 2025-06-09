@@ -1,15 +1,11 @@
 const express = require('express');
 const http = require('http');
-
 const {Server} = require('socket.io');
 
 const app = express();
 app.use(express.text({type: 'application/xml' }));  
-//octet stream indica que los archivos enviados estan en binario
-
-
-
 const server = http.createServer(app);
+
 const io = new Server(server,{
     cors:{
         origin: 'https://oicdev-frgitaxj5uzq-fr.integration.ocp.oraclecloud.com',  //cambiarlo a dominio de VB al subirlo a la nube
