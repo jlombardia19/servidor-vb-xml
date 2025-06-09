@@ -1,0 +1,55 @@
+const express = require('express');
+const http = require('http');
+const { console } = require('inspector/promises');
+const {Server} = require('socket.io');
+
+const app = express();
+app.use(express.text({type: 'application/xml' }));  
+
+
+
+
+const server = http.createServer(app);
+const io = new Server(server,{
+    cors:{
+        origin: 'https://oicdev-frgitaxj5uzq-fr.integration.ocp.oraclecloud.com',  
+    
+    methods: ['GET','POST'],
+    credentials: true
+    }
+
+});
+
+const clients = new Map();
+
+io.on('connection',(socket) => {    
+
+    socket.on('register', (id) => {
+        clients.set(id, socket);
+
+        socket.on('disconnect', () => {
+            clients.delete(id);
+        });
+    });
+});
+
+app.post('/enviar-xml', (req,res) =>{
+    
+    const id = req.query.vbId;
+
+        const xml = req.body;
+
+    const socket = clients.get(id);
+    if(socket){
+        socket.emit('xml-response', {id,xml});
+        res.sendStatus(200);
+    }
+    else{;
+        res.status(404).send('cliente desconectado');
+    }
+});
+
+server.listen(8080,() => {
+    console.log('servidor escuchando en el puerto 8080');
+});
+
