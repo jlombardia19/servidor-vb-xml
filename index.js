@@ -37,7 +37,7 @@ io.on('connection',(socket) => {
 
 app.post('/enviar-xml', (req,res) =>{
     
-    const id = req.headers['vbId'];
+    const id = req.query.vbId;
     console.log('llamada recibida con id: ', id);
 
         const xml = req.body;
