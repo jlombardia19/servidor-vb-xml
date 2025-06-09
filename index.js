@@ -6,6 +6,10 @@ const app = express();
 app.use(express.text({type: 'application/xml' }));  
 //octet stream indica que los archivos enviados estan en binario
 
+app.use(cors({
+  origin: 'https://oicdev-frgitaxj5uzq-fr.integration.ocp.oraclecloud.com' // Or '*' to allow all origins
+}));
+
 const server = http.createServer(app);
 const io = new Server(server,{
     //cors:{
