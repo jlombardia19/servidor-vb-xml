@@ -1,6 +1,6 @@
 const express = require('express');
 const http = require('http');
-const { console } = require('inspector/promises');
+
 const {Server} = require('socket.io');
 
 const app = express();
@@ -14,7 +14,7 @@ const io = new Server(server,{
     cors:{
         origin: 'https://oicdev-frgitaxj5uzq-fr.integration.ocp.oraclecloud.com',  //cambiarlo a dominio de VB al subirlo a la nube
     // https://oicdev-frgitaxj5uzq-fr.integration.ocp.oraclecloud.com/ic/builder/design/XX_O2C_EDI_VB/1.0/preview/webApps/main/
-    methods: ['GET','POST'],
+    methods: ['POST'],
     credentials: true
     }
 
