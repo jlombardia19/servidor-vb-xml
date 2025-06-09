@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const { console } = require('inspector/promises');
 const {Server} = require('socket.io');
 
 const app = express();
@@ -47,6 +48,7 @@ app.post('/enviar-xml', (req,res) =>{
     if(socket){
         console.log('enviando respuesta al cliente con id: ',id);
         socket.emit('xml-response', {id,xml});
+        console.log('XML enviado');
         res.sendStatus(200);
     }
     else{
