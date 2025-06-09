@@ -8,10 +8,10 @@ app.use(express.text({type: 'application/xml' }));
 
 const server = http.createServer(app);
 const io = new Server(server,{
-    cors:{
-        origin: 'oicdev-frgitaxj5uzq-fr.integration.ocp.oraclecloud.com'  //cambiarlo a dominio de VB al subirlo a la nube
+    //cors:{
+    //    origin: 'oicdev-frgitaxj5uzq-fr.integration.ocp.oraclecloud.com'  //cambiarlo a dominio de VB al subirlo a la nube
         
-    }
+    //}
 
 });
 
